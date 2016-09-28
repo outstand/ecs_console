@@ -1,8 +1,5 @@
-# EcsConsole
-
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/ecs_console`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+# ecs_console
+Run a remote console on ECS
 
 ## Installation
 
@@ -26,16 +23,21 @@ TODO: Write usage instructions here
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+- `./build_dev.sh`
+- `docker run -it --rm -v $(pwd):/ecs_console outstand/ecs_console:dev rspec spec` to run specs
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+To release a new version:
+- Update the version number in `version.rb` and `Dockerfile.release` and commit the result.
+- `./build_dev.sh`
+- `docker run -it --rm -v ~/.gitconfig:/root/.gitconfig -v ~/.gitconfig.user:/root/.gitconfig.user -v ~/.ssh/id_rsa:/root/.ssh/id_rsa -v ~/.gem:/root/.gem -w /ecs_console outstand/ecs_console:dev rake release`
+- `docker build -t outstand/ecs_console:VERSION -f Dockerfile.release .`
+- `docker push outstand/ecs_console:VERSION`
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/ecs_console.
+Bug reports and pull requests are welcome on GitHub at https://github.com/outstand/ecs_console.
 
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
+The gem is available as open source under the terms of the [Apache-2.0 License](https://opensource.org/licenses/Apache-2.0).
